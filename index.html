@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Interés - Obra Vial de Gran Magnitud</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px 30px;
+        }
+
+        .type-selector {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .type-selector h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .type-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .type-option {
+            position: relative;
+        }
+
+        .type-option input[type="radio"] {
+            display: none;
+        }
+
+        .type-option label {
+            display: block;
+            padding: 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .type-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .section h3 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .radio-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .radio-item input[type="radio"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .conditional-section {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+        }
+
+        .submit-section {
+            text-align: center;
+            padding: 40px 30px;
+            background: #f8f9fa;
+            margin: 40px -30px -40px -30px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .type-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Formulario de Interés</h1>
+            <p>Obra Vial de Gran Magnitud</p>
+        </div>
+
+        <div class="form-container">
+            <form id="interestForm">
+                
+                <!-- 1️⃣ TIPO DE PARTICIPACIÓN -->
+                <div class="type-selector">
+                    <h3><span class="section-icon">1</span>Tipo de Participación</h3>
+                    <div class="type-options">
+                        <div class="type-option">
+                            <input type="radio" id="constructora" name="tipo_empresa" value="constructora">
+                            <label for="constructora">
+                                <strong>Empresa Constructora</strong><br>
+                                Ejecución de obras
+                            </label>
+                        </div>
+                        <div class="type-option">
+                            <input type="radio" id="ingenieria" name="tipo_empresa" value="ingenieria">
+                            <label for="ingenieria">
+                                <strong>Firma de Ingeniería</strong><br>
+                                Estudios y proyectos
+                            </label>
+                        </div>
+                        <div class="type-option">
+                            <input type="radio" id="consultora" name="tipo_empresa" value="consultora">
+                            <label for="consultora">
+                                <strong>Consultora</strong><br>
+                                Servicios especializados
+                            </label>
+                        </div>
+                        <div class="type-option">
+                            <input type="radio" id="proveedor" name="tipo_empresa" value="proveedor">
+                            <label for="proveedor">
+                                <strong>Proveedor/Insumos</strong><br>
+                                Materiales y servicios
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2️⃣ INTERÉS EN LA OBRA - EMPRESA CONSTRUCTORA -->
+                <div class="section hidden" id="interes_constructora">
+                    <h3><span class="section-icon">2</span>Interés en la Obra - Empresa Constructora</h3>
+                    
+                    <div class="form-group">
+                        <label>¿Está su empresa interesada en participar de la obra vial de gran magnitud? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="interes_si_const" name="interes_constructora" value="si">
+                                <label for="interes_si_const">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_no_const" name="interes_constructora" value="no">
+                                <label for="interes_no_const">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_info_const" name="interes_constructora" value="requiere_info">
+                                <label for="interes_info_const">Requiere más información</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿En qué áreas específicas podría participar?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_suelos" name="areas_constructora[]" value="movimiento_suelos">
+                                <label for="area_suelos">Movimiento de suelos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_pavimentacion" name="areas_constructora[]" value="pavimentacion">
+                                <label for="area_pavimentacion">Pavimentación</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_obras_arte" name="areas_constructora[]" value="obras_arte">
+                                <label for="area_obras_arte">Obras de arte (puentes, alcantarillas, etc.)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_senalizacion" name="areas_constructora[]" value="senalizacion">
+                                <label for="area_senalizacion">Señalización</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_hidraulica" name="areas_constructora[]" value="hidraulica">
+                                <label for="area_hidraulica">Hidráulica</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_seguridad" name="areas_constructora[]" value="seguridad_vial">
+                                <label for="area_seguridad">Seguridad vial</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_gerenciamiento" name="areas_constructora[]" value="gerenciamiento">
+                                <label for="area_gerenciamiento">Gerenciamiento / Supervisión</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_llave_mano" name="areas_constructora[]" value="obra_llave_mano">
+                                <label for="area_llave_mano">Contratista obra llave en mano</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_demolicion" name="areas_constructora[]" value="demolicion">
+                                <label for="area_demolicion">Demolición</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_electricas" name="areas_constructora[]" value="instalaciones_electricas">
+                                <label for="area_electricas">Instalaciones eléctricas</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_paisajismo" name="areas_constructora[]" value="paisajismo">
+                                <label for="area_paisajismo">Paisajismo</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="area_otra_const" name="areas_constructora[]" value="otra">
+                                <label for="area_otra_const">Otra</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="otra_area_const_group">
+                        <label for="otra_area_const">Especifique otra área</label>
+                        <input type="text" id="otra_area_const" name="otra_area_constructora">
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Cuenta con experiencia en obras viales de gran escala? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_si_const" name="experiencia_constructora" value="si">
+                                <label for="experiencia_si_const">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_no_const" name="experiencia_constructora" value="no">
+                                <label for="experiencia_no_const">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="obras_relevantes_const_group">
+                        <label for="obras_relevantes_const">Mencione hasta 3 obras relevantes</label>
+                        <textarea id="obras_relevantes_const" name="obras_relevantes_constructora" placeholder="Describa hasta 3 obras viales relevantes en las que haya participado..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Estaría dispuesta la empresa a formar parte de una UTE (Unión Transitoria de Empresas) o consorcio?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="ute_si_const" name="ute_constructora" value="si">
+                                <label for="ute_si_const">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="ute_no_const" name="ute_constructora" value="no">
+                                <label for="ute_no_const">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="ute_depende_const" name="ute_constructora" value="depende">
+                                <label for="ute_depende_const">Depende del tipo de socio o proyecto</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2️⃣ INTERÉS EN LA OBRA - FIRMA DE INGENIERÍA -->
+                <div class="section hidden" id="interes_ingenieria">
+                    <h3><span class="section-icon">2</span>Interés en la Obra - Firma de Ingeniería</h3>
+                    
+                    <div class="form-group">
+                        <label>¿Está su firma de ingeniería interesada en participar en el proyecto vial? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="interes_si_ing" name="interes_ingenieria" value="si">
+                                <label for="interes_si_ing">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_no_ing" name="interes_ingenieria" value="no">
+                                <label for="interes_no_ing">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_info_ing" name="interes_ingenieria" value="requiere_info">
+                                <label for="interes_info_ing">Requiere más información</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿En qué etapas podría participar?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_proyecto" name="etapas_ingenieria[]" value="proyecto_ejecutivo">
+                                <label for="etapa_proyecto">Proyecto ejecutivo</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_topografia" name="etapas_ingenieria[]" value="estudios_topograficos">
+                                <label for="etapa_topografia">Estudios topográficos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_suelo" name="etapas_ingenieria[]" value="estudios_suelo">
+                                <label for="etapa_suelo">Estudios de suelo</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_hidraulica_ing" name="etapas_ingenieria[]" value="hidraulica">
+                                <label for="etapa_hidraulica_ing">Hidráulica</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_seguridad_ing" name="etapas_ingenieria[]" value="seguridad_vial">
+                                <label for="etapa_seguridad_ing">Seguridad vial</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_direccion" name="etapas_ingenieria[]" value="direccion_obra">
+                                <label for="etapa_direccion">Dirección de obra</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_calidad" name="etapas_ingenieria[]" value="control_calidad">
+                                <label for="etapa_calidad">Control de calidad</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_trafico" name="etapas_ingenieria[]" value="ingenieria_trafico">
+                                <label for="etapa_trafico">Ingeniería de tráfico y transporte</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="etapa_otra_ing" name="etapas_ingenieria[]" value="otra">
+                                <label for="etapa_otra_ing">Otra</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="otra_etapa_ing_group">
+                        <label for="otra_etapa_ing">Especifique otra etapa</label>
+                        <input type="text" id="otra_etapa_ing" name="otra_etapa_ingenieria">
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene experiencia previa en obras viales de gran escala? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_si_ing" name="experiencia_ingenieria" value="si">
+                                <label for="experiencia_si_ing">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_no_ing" name="experiencia_ingenieria" value="no">
+                                <label for="experiencia_no_ing">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="proyectos_relevantes_ing_group">
+                        <label for="proyectos_relevantes_ing">Indique hasta 3 proyectos relevantes en los que haya participado</label>
+                        <textarea id="proyectos_relevantes_ing" name="proyectos_relevantes_ingenieria" placeholder="Describa hasta 3 proyectos viales relevantes..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene interés en asociarse con otras firmas para este proyecto?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="asociarse_si_ing" name="asociarse_ingenieria" value="si">
+                                <label for="asociarse_si_ing">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="asociarse_no_ing" name="asociarse_ingenieria" value="no">
+                                <label for="asociarse_no_ing">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="asociarse_depende_ing" name="asociarse_ingenieria" value="depende">
+                                <label for="asociarse_depende_ing">Depende</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2️⃣ INTERÉS EN LA OBRA - CONSULTORA -->
+                <div class="section hidden" id="interes_consultora">
+                    <h3><span class="section-icon">2</span>Interés en la Obra - Consultora</h3>
+                    
+                    <div class="form-group">
+                        <label>¿Está su consultora interesada en participar en el proyecto vial? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="interes_si_cons" name="interes_consultora" value="si">
+                                <label for="interes_si_cons">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_no_cons" name="interes_consultora" value="no">
+                                <label for="interes_no_cons">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_info_cons" name="interes_consultora" value="requiere_info">
+                                <label for="interes_info_cons">Requiere más información</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿En qué áreas de consultoría podría participar?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_socioambiental" name="areas_consultoria[]" value="socioambiental">
+                                <label for="consultoria_socioambiental">Socioambiental</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_seguridad" name="areas_consultoria[]" value="seguridad_higiene">
+                                <label for="consultoria_seguridad">Seguridad e Higiene</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_tecnologia" name="areas_consultoria[]" value="tecnologia">
+                                <label for="consultoria_tecnologia">Tecnología</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_especializados" name="areas_consultoria[]" value="servicios_especializados">
+                                <label for="consultoria_especializados">Servicios especializados</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_control_calidad" name="areas_consultoria[]" value="control_calidad">
+                                <label for="consultoria_control_calidad">Control de calidad</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_catering" name="areas_consultoria[]" value="catering_servicios_personal">
+                                <label for="consultoria_catering">Catering y servicios para personal</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_seguros" name="areas_consultoria[]" value="seguros">
+                                <label for="consultoria_seguros">Seguros</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_logistica" name="areas_consultoria[]" value="logistica_transporte">
+                                <label for="consultoria_logistica">Logística y transporte</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="consultoria_otra" name="areas_consultoria[]" value="otra">
+                                <label for="consultoria_otra">Otra</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="otra_consultoria_group">
+                        <label for="otra_consultoria">Especifique otra área de consultoría</label>
+                        <input type="text" id="otra_consultoria" name="otra_consultoria">
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene experiencia previa en proyectos de infraestructura vial? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_si_cons" name="experiencia_consultora" value="si">
+                                <label for="experiencia_si_cons">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_no_cons" name="experiencia_consultora" value="no">
+                                <label for="experiencia_no_cons">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="proyectos_relevantes_cons_group">
+                        <label for="proyectos_relevantes_cons">Indique hasta 3 proyectos relevantes en los que haya participado</label>
+                        <textarea id="proyectos_relevantes_cons" name="proyectos_relevantes_consultora" placeholder="Describa hasta 3 proyectos de infraestructura vial relevantes..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene interés en asociarse con otras empresas para este proyecto?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="asociarse_si_cons" name="asociarse_consultora" value="si">
+                                <label for="asociarse_si_cons">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="asociarse_no_cons" name="asociarse_consultora" value="no">
+                                <label for="asociarse_no_cons">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="asociarse_depende_cons" name="asociarse_consultora" value="depende">
+                                <label for="asociarse_depende_cons">Depende</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2️⃣ INTERÉS EN LA OBRA - PROVEEDOR/INSUMOS -->
+                <div class="section hidden" id="interes_proveedor">
+                    <h3><span class="section-icon">2</span>Interés en la Obra - Proveedor/Insumos</h3>
+                    
+                    <div class="form-group">
+                        <label>¿Su empresa ofrece productos o servicios relevantes para la obra vial? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="interes_si_prov" name="interes_proveedor" value="si">
+                                <label for="interes_si_prov">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_no_prov" name="interes_proveedor" value="no">
+                                <label for="interes_no_prov">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="interes_info_prov" name="interes_proveedor" value="requiere_info">
+                                <label for="interes_info_prov">Requiere más información</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Qué tipo de insumos, productos o servicios provee?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_pavimento" name="productos_proveedor[]" value="materiales_pavimento">
+                                <label for="producto_pavimento">Materiales para pavimento (asfalto, hormigón)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_senalizacion" name="productos_proveedor[]" value="senalizacion_carteleria">
+                                <label for="producto_senalizacion">Señalización y cartelería</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_electricos" name="productos_proveedor[]" value="insumos_electricos">
+                                <label for="producto_electricos">Insumos eléctricos o electrónicos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_equipamiento" name="productos_proveedor[]" value="equipamiento_vial">
+                                <label for="producto_equipamiento">Equipamiento vial</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_aridos" name="productos_proveedor[]" value="aridos">
+                                <label for="producto_aridos">Áridos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_aceros" name="productos_proveedor[]" value="aceros">
+                                <label for="producto_aceros">Aceros</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_tuberias" name="productos_proveedor[]" value="tuberias_desagues">
+                                <label for="producto_tuberias">Tuberías y desagües</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_equipos_pesados" name="productos_proveedor[]" value="equipos_pesados">
+                                <label for="producto_equipos_pesados">Equipos pesados</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_geotextil" name="productos_proveedor[]" value="geotextil_geomembrana">
+                                <label for="producto_geotextil">Geotextil y geomembrana</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_combustibles" name="productos_proveedor[]" value="combustibles_lubricantes">
+                                <label for="producto_combustibles">Combustibles y lubricantes</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="producto_otros" name="productos_proveedor[]" value="otros">
+                                <label for="producto_otros">Otros</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="detalle_productos">Detalle adicional sobre sus productos o servicios</label>
+                        <textarea id="detalle_productos" name="detalle_productos" placeholder="Describa en detalle los productos o servicios que ofrece..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Tiene experiencia como proveedor en proyectos de infraestructura vial? <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_si_prov" name="experiencia_proveedor" value="si">
+                                <label for="experiencia_si_prov">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="experiencia_no_prov" name="experiencia_proveedor" value="no">
+                                <label for="experiencia_no_prov">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="experiencias_prov_group">
+                        <label for="experiencias_prov">Mencione hasta 3 experiencias relevantes</label>
+                        <textarea id="experiencias_prov" name="experiencias_proveedor" placeholder="Describa hasta 3 experiencias relevantes como proveedor en infraestructura vial..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Cuenta con logística para distribución en el territorio nacional?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="logistica_si" name="logistica_nacional" value="si">
+                                <label for="logistica_si">Sí</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="logistica_no" name="logistica_nacional" value="no">
+                                <label for="logistica_no">No</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="logistica_parcial" name="logistica_nacional" value="parcialmente">
+                                <label for="logistica_parcial">Parcialmente</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3️⃣ DATOS DE LA EMPRESA -->
+                <div class="section">
+                    <h3><span class="section-icon">3</span>Datos de la Empresa</h3>
+                    
+                    <div class="form-group">
+                        <label for="nombre_empresa">Nombre de la empresa <span class="required">*</span></label>
+                        <input type="text" id="nombre_empresa" name="nombre_empresa" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tipo_identificador">Tipo de identificador fiscal <span class="required">*</span></label>
+                            <select id="tipo_identificador" name="tipo_identificador" required>
+                                <option value="">Seleccione...</option>
+                                <option value="CUIT">CUIT (Argentina)</option>
+                                <option value="RUT_UY">RUT (Uruguay)</option>
+                                <option value="RUC_PE">RUC (Perú)</option>
+                                <option value="NIT_CO">NIT (Colombia)</option>
+                                <option value="RFC">RFC (México)</option>
+                                <option value="RUC_PY">RUC (Paraguay)</option>
+                                <option value="RUC_EC">RUC (Ecuador)</option>
+                                <option value="NIT_BO">NIT (Bolivia)</option>
+                                <option value="RIF">RIF (Venezuela)</option>
+                                <option value="NIF">NIF (España)</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numero_identificador">Número de identificador fiscal <span class="required">*</span></label>
+                            <input type="text" id="numero_identificador" name="numero_identificador" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tipo_empresa_legal">Tipo de empresa <span class="required">*</span></label>
+                        <select id="tipo_empresa_legal" name="tipo_empresa_legal" required>
+                            <option value="">Seleccione...</option>
+                            <option value="sociedad_anonima">Sociedad Anónima</option>
+                            <option value="srl">SRL</option>
+                            <option value="unipersonal">Unipersonal</option>
+                            <option value="cooperativa">Cooperativa</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pais">País <span class="required">*</span></label>
+                            <select id="pais" name="pais" required>
+                                <option value="">Seleccione...</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="Ecuador">Ecuador</option>
+                                <option value="El Salvador">El Salvador</option>
+                                <option value="Guatemala">Guatemala</option>
+                                <option value="Honduras">Honduras</option>
+                                <option value="México">México</option>
+                                <option value="Nicaragua">Nicaragua</option>
+                                <option value="Panamá">Panamá</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="Perú">Perú</option>
+                                <option value="República Dominicana">República Dominicana</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Venezuela">Venezuela</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="codigo_postal">Código postal</label>
+                            <input type="text" id="codigo_postal" name="codigo_postal">
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="otro_pais_group">
+                        <label for="otro_pais">Especifique otro país</label>
+                        <input type="text" id="otro_pais" name="otro_pais">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="domicilio_legal">Domicilio legal <span class="required">*</span></label>
+                        <textarea id="domicilio_legal" name="domicilio_legal" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pagina_web">Página web</label>
+                            <input type="url" id="pagina_web" name="pagina_web" placeholder="https://...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono">Teléfono de contacto <span class="required">*</span></label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="persona_contacto">Persona de contacto <span class="required">*</span></label>
+                            <input type="text" id="persona_contacto" name="persona_contacto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Correo electrónico <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4️⃣ DATOS PERSONALES DEL CONTACTO -->
+                <div class="section">
+                    <h3><span class="section-icon">4</span>Datos Personales del Contacto</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre_contacto">Nombre completo <span class="required">*</span></label>
+                            <input type="text" id="nombre_contacto" name="nombre_contacto" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cargo_contacto">Cargo <span class="required">*</span></label>
+                            <input type="text" id="cargo_contacto" name="cargo_contacto" required placeholder="Ej: Gerente General, Director Técnico, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sector_contacto">Sector/Departamento</label>
+                            <select id="sector_contacto" name="sector_contacto">
+                                <option value="">Seleccione...</option>
+                                <option value="gerencia_general">Gerencia General</option>
+                                <option value="direccion_tecnica">Dirección Técnica</option>
+                                <option value="desarrollo_comercial">Desarrollo Comercial</option>
+                                <option value="ingenieria">Ingeniería</option>
+                                <option value="operaciones">Operaciones</option>
+                                <option value="administracion">Administración</option>
+                                <option value="recursos_humanos">Recursos Humanos</option>
+                                <option value="calidad">Calidad</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email_personal">Email personal del contacto <span class="required">*</span></label>
+                            <input type="email" id="email_personal" name="email_personal" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono_personal">Teléfono personal</label>
+                            <input type="tel" id="telefono_personal" name="telefono_personal">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="linkedin_personal">LinkedIn personal</label>
+                            <input type="url" id="linkedin_personal" name="linkedin_personal" placeholder="https://www.linkedin.com/in/...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="anos_experiencia_contacto">Años de experiencia en el sector</label>
+                            <select id="anos_experiencia_contacto" name="anos_experiencia_contacto">
+                                <option value="">Seleccione...</option>
+                                <option value="0_2">0 - 2 años</option>
+                                <option value="3_5">3 - 5 años</option>
+                                <option value="6_10">6 - 10 años</option>
+                                <option value="11_20">11 - 20 años</option>
+                                <option value="21_30">21 - 30 años</option>
+                                <option value="mayor_30">Más de 30 años</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="formacion_profesional">Formación profesional</label>
+                        <input type="text" id="formacion_profesional" name="formacion_profesional" placeholder="Ej: Ingeniero Civil, Arquitecto, Técnico en Construcción, etc.">
+                    </div>
+                </div>
+
+                <!-- 5️⃣ INFORMACIÓN ADICIONAL ESTRATÉGICA -->
+                <div class="section">
+                    <h3><span class="section-icon">5</span>Información Adicional Estratégica</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facturacion_anual">Facturación anual aproximada (USD)</label>
+                            <select id="facturacion_anual" name="facturacion_anual">
+                                <option value="">Seleccione...</option>
+                                <option value="menor_1m">Menor a 1 millón</option>
+                                <option value="1m_5m">1 - 5 millones</option>
+                                <option value="5m_10m">5 - 10 millones</option>
+                                <option value="10m_50m">10 - 50 millones</option>
+                                <option value="50m_100m">50 - 100 millones</option>
+                                <option value="mayor_100m">Mayor a 100 millones</option>
+                                <option value="no_especifica">Prefiero no especificar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cantidad_empleados">Cantidad de empleados</label>
+                            <select id="cantidad_empleados" name="cantidad_empleados">
+                                <option value="">Seleccione...</option>
+                                <option value="1_10">1 - 10 empleados</option>
+                                <option value="11_50">11 - 50 empleados</option>
+                                <option value="51_100">51 - 100 empleados</option>
+                                <option value="101_250">101 - 250 empleados</option>
+                                <option value="251_500">251 - 500 empleados</option>
+                                <option value="501_1000">501 - 1000 empleados</option>
+                                <option value="mayor_1000">Más de 1000 empleados</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="anos_experiencia">Años de experiencia en el sector</label>
+                        <select id="anos_experiencia" name="anos_experiencia">
+                            <option value="">Seleccione...</option>
+                            <option value="0_2">0 - 2 años</option>
+                            <option value="3_5">3 - 5 años</option>
+                            <option value="6_10">6 - 10 años</option>
+                            <option value="11_20">11 - 20 años</option>
+                            <option value="21_30">21 - 30 años</option>
+                            <option value="mayor_30">Más de 30 años</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Certificaciones de calidad y/o ambientales</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert_iso9001" name="certificaciones[]" value="iso_9001">
+                                <label for="cert_iso9001">ISO 9001 (Gestión de Calidad)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert_iso14001" name="certificaciones[]" value="iso_14001">
+                                <label for="cert_iso14001">ISO 14001 (Gestión Ambiental)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert_iso45001" name="certificaciones[]" value="iso_45001">
+                                <label for="cert_iso45001">ISO 45001 (Seguridad y Salud)</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert_ohsas" name="certificaciones[]" value="ohsas_18001">
+                                <label for="cert_ohsas">OHSAS 18001</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert_otras" name="certificaciones[]" value="otras">
+                                <label for="cert_otras">Otras certificaciones</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="cert_ninguna" name="certificaciones[]" value="ninguna">
+                                <label for="cert_ninguna">No posee certificaciones</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group conditional-section" id="otras_certificaciones_group">
+                        <label for="otras_certificaciones">Especifique otras certificaciones</label>
+                        <input type="text" id="otras_certificaciones" name="otras_certificaciones" placeholder="Ej: LEED, BREEAM, certificaciones locales...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacidad_financiera">Capacidad financiera para proyectos grandes</label>
+                        <select id="capacidad_financiera" name="capacidad_financiera">
+                            <option value="">Seleccione...</option>
+                            <option value="hasta_1m">Hasta 1 millón USD</option>
+                            <option value="1m_5m">1 - 5 millones USD</option>
+                            <option value="5m_20m">5 - 20 millones USD</option>
+                            <option value="20m_50m">20 - 50 millones USD</option>
+                            <option value="mayor_50m">Mayor a 50 millones USD</option>
+                            <option value="sin_limite">Sin límite específico</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="disponibilidad_inicio">Disponibilidad para inicio de trabajos</label>
+                        <select id="disponibilidad_inicio" name="disponibilidad_inicio">
+                            <option value="">Seleccione...</option>
+                            <option value="inmediata">Inmediata (0-30 días)</option>
+                            <option value="corto_plazo">Corto plazo (1-3 meses)</option>
+                            <option value="mediano_plazo">Mediano plazo (3-6 meses)</option>
+                            <option value="largo_plazo">Largo plazo (6+ meses)</option>
+                            <option value="depende_proyecto">Depende del proyecto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 6️⃣ NETWORKING Y COMUNICACIONES -->
+                <div class="section">
+                    <h3><span class="section-icon">6</span>Networking y Comunicaciones</h3>
+                    
+                    <div class="form-group">
+                        <label>¿Desea recibir información adicional y actualizaciones del proyecto?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_email" name="recibir_info[]" value="email">
+                                <label for="info_email">Sí, por correo electrónico</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_telefono" name="recibir_info[]" value="telefono">
+                                <label for="info_telefono">Sí, por teléfono</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_whatsapp" name="recibir_info[]" value="whatsapp">
+                                <label for="info_whatsapp">Sí, por WhatsApp</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_reuniones" name="recibir_info[]" value="reuniones">
+                                <label for="info_reuniones">Reuniones presenciales/virtuales</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_no" name="recibir_info[]" value="no">
+                                <label for="info_no">No deseo recibir información</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frecuencia_comunicacion">Frecuencia preferida de comunicación</label>
+                        <select id="frecuencia_comunicacion" name="frecuencia_comunicacion">
+                            <option value="">Seleccione...</option>
+                            <option value="semanal">Semanal</option>
+                            <option value="quincenal">Quincenal</option>
+                            <option value="mensual">Mensual</option>
+                            <option value="trimestral">Trimestral</option>
+                            <option value="solo_importantes">Solo actualizaciones importantes</option>
+                            <option value="sin_preferencia">Sin preferencia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Está interesado en participar en eventos de networking del proyecto?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="networking_si" name="interes_networking" value="si">
+                                <label for="networking_si">Sí, muy interesado</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="networking_tal_vez" name="interes_networking" value="tal_vez">
+                                <label for="networking_tal_vez">Tal vez, depende del evento</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="networking_no" name="interes_networking" value="no">
+                                <label for="networking_no">No estoy interesado</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferencia para eventos de networking</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="evento_presencial" name="tipo_eventos[]" value="presencial">
+                                <label for="evento_presencial">Eventos presenciales</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="evento_virtual" name="tipo_eventos[]" value="virtual">
+                                <label for="evento_virtual">Eventos virtuales</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="evento_hibrido" name="tipo_eventos[]" value="hibrido">
+                                <label for="evento_hibrido">Eventos híbridos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="evento_visitas" name="tipo_eventos[]" value="visitas_obra">
+                                <label for="evento_visitas">Visitas técnicas a obra</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="linkedin_empresa">LinkedIn de la empresa</label>
+                            <input type="url" id="linkedin_empresa" name="linkedin_empresa" placeholder="https://www.linkedin.com/company/...">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkedin_contacto">LinkedIn del contacto principal</label>
+                            <input type="url" id="linkedin_contacto" name="linkedin_contacto" placeholder="https://www.linkedin.com/in/...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comentarios_adicionales">Comentarios adicionales sobre el proyecto</label>
+                        <textarea id="comentarios_adicionales" name="comentarios_adicionales" placeholder="Cualquier información adicional que considere relevante sobre su interés en el proyecto, expectativas, sugerencias, etc."></textarea>
+                    </div>
+                </div>
+
+                <!-- 7️⃣ CONSENTIMIENTOS Y TÉRMINOS -->
+                <div class="section">
+                    <h3><span class="section-icon">7</span>Consentimientos y Términos</h3>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-item" style="padding: 20px; background: #f8f9ff; border: 2px solid #667eea; border-radius: 12px;">
+                            <input type="checkbox" id="acepta_terminos" name="acepta_terminos" value="si" required>
+                            <label for="acepta_terminos" style="font-weight: 600;">
+                                <span class="required">*</span> Acepto los términos y condiciones de participación en el proceso de selección
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-item" style="padding: 20px; background: #f8f9ff; border: 2px solid #667eea; border-radius: 12px;">
+                            <input type="checkbox" id="acepta_privacidad" name="acepta_privacidad" value="si" required>
+                            <label for="acepta_privacidad" style="font-weight: 600;">
+                                <span class="required">*</span> Acepto la política de privacidad y el tratamiento de mis datos personales
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-item" style="padding: 20px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px;">
+                            <input type="checkbox" id="autoriza_contacto" name="autoriza_contacto" value="si">
+                            <label for="autoriza_contacto" style="font-weight: 600;">
+                                Autorizo el contacto comercial para futuras oportunidades de negocio relacionadas
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="checkbox-item" style="padding: 20px; background: #d1ecf1; border: 2px solid #17a2b8; border-radius: 12px;">
+                            <input type="checkbox" id="confirma_veracidad" name="confirma_veracidad" value="si" required>
+                            <label for="confirma_veracidad" style="font-weight: 600;">
+                                <span class="required">*</span> Confirmo que toda la información proporcionada es veraz y actualizada
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="como_se_entero">¿Cómo se enteró de este proyecto?</label>
+                        <select id="como_se_entero" name="como_se_entero">
+                            <option value="">Seleccione...</option>
+                            <option value="sitio_web">Sitio web oficial</option>
+                            <option value="redes_sociales">Redes sociales</option>
+                            <option value="medios_comunicacion">Medios de comunicación</option>
+                            <option value="referido_empresa">Referido por otra empresa</option>
+                            <option value="referido_personal">Referido personal</option>
+                            <option value="evento_sector">Evento del sector</option>
+                            <option value="asociacion_gremial">Asociación gremial</option>
+                            <option value="licitacion_publica">Portales de licitación pública</option>
+                            <option value="email_marketing">Email marketing</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group conditional-section" id="otro_entero_group">
+                        <label for="otro_entero">Especifique cómo se enteró</label>
+                        <input type="text" id="otro_entero" name="otro_entero" placeholder="Detalle la fuente...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expectativas_proyecto">Principales expectativas sobre este proyecto</label>
+                        <textarea id="expectativas_proyecto" name="expectativas_proyecto" placeholder="Describa qué espera obtener de su participación en este proyecto vial..."></textarea>
+                    </div>
+                </div>
+
+                <!-- 8️⃣ DUDAS Y CONSULTAS -->
+                <div class="section">
+                    <h3><span class="section-icon">8</span>Dudas y Consultas</h3>
+                    
+                    <div class="form-group">
+                        <label for="dudas_consultas">¿Tiene alguna duda o consulta específica respecto al proyecto?</label>
+                        <textarea id="dudas_consultas" name="dudas_consultas" placeholder="Escriba aquí cualquier pregunta, duda o consulta que tenga sobre el proyecto vial, los procesos de selección, plazos, requisitos técnicos, etc." rows="6"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Sobre qué aspectos le gustaría recibir más información?</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_cronograma" name="info_adicional[]" value="cronograma">
+                                <label for="info_cronograma">Cronograma del proyecto</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_requisitos" name="info_adicional[]" value="requisitos_tecnicos">
+                                <label for="info_requisitos">Requisitos técnicos</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_proceso" name="info_adicional[]" value="proceso_seleccion">
+                                <label for="info_proceso">Proceso de selección</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_financiamiento" name="info_adicional[]" value="financiamiento">
+                                <label for="info_financiamiento">Aspectos de financiamiento</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_ubicacion" name="info_adicional[]" value="ubicacion_obra">
+                                <label for="info_ubicacion">Ubicación y características de la obra</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_contratos" name="info_adicional[]" value="modalidades_contrato">
+                                <label for="info_contratos">Modalidades de contratación</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_sostenibilidad" name="info_adicional[]" value="aspectos_ambientales">
+                                <label for="info_sostenibilidad">Aspectos ambientales y sostenibilidad</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="info_otros" name="info_adicional[]" value="otros">
+                                <label for="info_otros">Otros aspectos</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contacto_preferido">¿Cuál es su horario preferido para ser contactado?</label>
+                        <select id="contacto_preferido" name="contacto_preferido">
+                            <option value="">Seleccione...</option>
+                            <option value="manana">Mañana (8:00 - 12:00)</option>
+                            <option value="tarde">Tarde (12:00 - 18:00)</option>
+                            <option value="cualquier_momento">Cualquier momento del horario laboral</option>
+                            <option value="fuera_horario">Fuera del horario laboral</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn">Enviar Formulario de Interés</button>
+                    <p style="margin-top: 15px; color: #6c757d; font-size: 0.9rem;">
+                        * Campos obligatorios
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Manejo de selección de tipo de empresa
+        const tipoEmpresaRadios = document.querySelectorAll('input[name="tipo_empresa"]');
+        const interesConstructora = document.getElementById('interes_constructora');
+        const interesIngenieria = document.getElementById('interes_ingenieria');
+        const interesConsultora = document.getElementById('interes_consultora');
+        const interesProveedor = document.getElementById('interes_proveedor');
+
+        tipoEmpresaRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Ocultar todas las secciones
+                interesConstructora.classList.add('hidden');
+                interesIngenieria.classList.add('hidden');
+                interesConsultora.classList.add('hidden');
+                interesProveedor.classList.add('hidden');
+
+                // Mostrar la sección correspondiente
+                switch(this.value) {
+                    case 'constructora':
+                        interesConstructora.classList.remove('hidden');
+                        break;
+                    case 'ingenieria':
+                        interesIngenieria.classList.remove('hidden');
+                        break;
+                    case 'consultora':
+                        interesConsultora.classList.remove('hidden');
+                        break;
+                    case 'proveedor':
+                        interesProveedor.classList.remove('hidden');
+                        break;
+                }
+            });
+        });
+
+        // Mostrar campo "Otro país"
+        const paisSelect = document.getElementById('pais');
+        const otroPaisGroup = document.getElementById('otro_pais_group');
+
+        paisSelect.addEventListener('change', function() {
+            if (this.value === 'otro') {
+                otroPaisGroup.style.display = 'block';
+            } else {
+                otroPaisGroup.style.display = 'none';
+            }
+        });
+
+        // Mostrar campos condicionales para constructoras
+        const areaOtraConst = document.getElementById('area_otra_const');
+        const otraAreaConstGroup = document.getElementById('otra_area_const_group');
+
+        if (areaOtraConst) {
+            areaOtraConst.addEventListener('change', function() {
+                if (this.checked) {
+                    otraAreaConstGroup.style.display = 'block';
+                } else {
+                    otraAreaConstGroup.style.display = 'none';
+                }
+            });
+        }
+
+        // Mostrar obras relevantes para constructoras
+        const experienciaConstRadios = document.querySelectorAll('input[name="experiencia_constructora"]');
+        const obrasRelevantesConstrucGroup = document.getElementById('obras_relevantes_const_group');
+
+        experienciaConstRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'si') {
+                    obrasRelevantesConstrucGroup.style.display = 'block';
+                } else {
+                    obrasRelevantesConstrucGroup.style.display = 'none';
+                }
+            });
+        });
+
+        // Mostrar campos condicionales para ingeniería
+        const etapaOtraIng = document.getElementById('etapa_otra_ing');
+        const otraEtapaIngGroup = document.getElementById('otra_etapa_ing_group');
+
+        if (etapaOtraIng) {
+            etapaOtraIng.addEventListener('change', function() {
+                if (this.checked) {
+                    otraEtapaIngGroup.style.display = 'block';
+                } else {
+                    otraEtapaIngGroup.style.display = 'none';
+                }
+            });
+        }
+
+        // Mostrar proyectos relevantes para ingeniería
+        const experienciaIngRadios = document.querySelectorAll('input[name="experiencia_ingenieria"]');
+        const proyectosRelevantesIngGroup = document.getElementById('proyectos_relevantes_ing_group');
+
+        experienciaIngRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'si') {
+                    proyectosRelevantesIngGroup.style.display = 'block';
+                } else {
+                    proyectosRelevantesIngGroup.style.display = 'none';
+                }
+            });
+        });
+
+        // Mostrar campos condicionales para consultoras
+        const consultoriaOtra = document.getElementById('consultoria_otra');
+        const otraConsultoriaGroup = document.getElementById('otra_consultoria_group');
+
+        if (consultoriaOtra) {
+            consultoriaOtra.addEventListener('change', function() {
+                if (this.checked) {
+                    otraConsultoriaGroup.style.display = 'block';
+                } else {
+                    otraConsultoriaGroup.style.display = 'none';
+                }
+            });
+        }
+
+        // Mostrar proyectos relevantes para consultoras
+        const experienciaConsRadios = document.querySelectorAll('input[name="experiencia_consultora"]');
+        const proyectosRelevantesConsGroup = document.getElementById('proyectos_relevantes_cons_group');
+
+        experienciaConsRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'si') {
+                    proyectosRelevantesConsGroup.style.display = 'block';
+                } else {
+                    proyectosRelevantesConsGroup.style.display = 'none';
+                }
+            });
+        });
+
+        // Mostrar experiencias para proveedores
+        const experienciaProvRadios = document.querySelectorAll('input[name="experiencia_proveedor"]');
+        const experienciasProvGroup = document.getElementById('experiencias_prov_group');
+
+        experienciaProvRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'si') {
+                    experienciasProvGroup.style.display = 'block';
+                } else {
+                    experienciasProvGroup.style.display = 'none';
+                }
+            });
+        });
+
+        // Mostrar "otras certificaciones"
+        const certOtras = document.getElementById('cert_otras');
+        const otrasCertificacionesGroup = document.getElementById('otras_certificaciones_group');
+
+        if (certOtras) {
+            certOtras.addEventListener('change', function() {
+                if (this.checked) {
+                    otrasCertificacionesGroup.style.display = 'block';
+                } else {
+                    otrasCertificacionesGroup.style.display = 'none';
+                }
+            });
+        }
+
+        // Mostrar "otro" en cómo se enteró
+        const comoSeEnteroSelect = document.getElementById('como_se_entero');
+        const otroEnteroGroup = document.getElementById('otro_entero_group');
+
+        comoSeEnteroSelect.addEventListener('change', function() {
+            if (this.value === 'otro') {
+                otroEnteroGroup.style.display = 'block';
+            } else {
+                otroEnteroGroup.style.display = 'none';
+            }
+        });
+
+        // Evitar selección múltiple en "No deseo recibir información"
+        const infoNoCheckbox = document.getElementById('info_no');
+        const otrosInfoCheckboxes = document.querySelectorAll('input[name="recibir_info[]"]:not(#info_no)');
+
+        if (infoNoCheckbox) {
+            infoNoCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    otrosInfoCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                }
+            });
+
+            otrosInfoCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        infoNoCheckbox.checked = false;
+                    }
+                });
+            });
+        }
+
+        // Evitar selección múltiple en certificaciones "ninguna" vs otras
+        const certNinguna = document.getElementById('cert_ninguna');
+        const otrasCertCheckboxes = document.querySelectorAll('input[name="certificaciones[]"]:not(#cert_ninguna)');
+
+        if (certNinguna) {
+            certNinguna.addEventListener('change', function() {
+                if (this.checked) {
+                    otrasCertCheckboxes.forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                }
+            });
+
+            otrasCertCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        certNinguna.checked = false;
+                    }
+                });
+            });
+        }
+
+        // Validación de email en tiempo real
+        const emailInputs = document.querySelectorAll('input[type="email"]');
+        emailInputs.forEach(emailInput => {
+            emailInput.addEventListener('blur', function() {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const errorId = this.id + '-error';
+                
+                if (this.value && !emailRegex.test(this.value)) {
+                    this.style.borderColor = '#e74c3c';
+                    if (!document.getElementById(errorId)) {
+                        const errorMsg = document.createElement('small');
+                        errorMsg.id = errorId;
+                        errorMsg.style.color = '#e74c3c';
+                        errorMsg.textContent = 'Por favor, ingrese un email válido';
+                        this.parentNode.appendChild(errorMsg);
+                    }
+                } else {
+                    this.style.borderColor = '#e9ecef';
+                    const errorMsg = document.getElementById(errorId);
+                    if (errorMsg) {
+                        errorMsg.remove();
+                    }
+                }
+            });
+        });
+
+        // Formato de teléfono básico
+        const telefonoInputs = document.querySelectorAll('input[type="tel"]');
+        telefonoInputs.forEach(telefonoInput => {
+            telefonoInput.addEventListener('input', function() {
+                // Remover caracteres no numéricos excepto +, -, (, ), espacios
+                this.value = this.value.replace(/[^0-9+\-() ]/g, '');
+            });
+        });
+
+        // Scroll suave a sección activa cuando se selecciona tipo de empresa
+        function smoothScrollToElement(element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        tipoEmpresaRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                setTimeout(() => {
+                    let targetSection;
+                    switch(this.value) {
+                        case 'constructora':
+                            targetSection = interesConstructora;
+                            break;
+                        case 'ingenieria':
+                            targetSection = interesIngenieria;
+                            break;
+                        case 'consultora':
+                            targetSection = interesConsultora;
+                            break;
+                        case 'proveedor':
+                            targetSection = interesProveedor;
+                            break;
+                    }
+                    if (targetSection) {
+                        smoothScrollToElement(targetSection);
+                    }
+                }, 100);
+            });
+        });
+
+        // Validación y envío del formulario
+        document.getElementById('interestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validar que se haya seleccionado un tipo de empresa
+            const tipoEmpresaSeleccionado = document.querySelector('input[name="tipo_empresa"]:checked');
+            if (!tipoEmpresaSeleccionado) {
+                alert('Por favor, seleccione el tipo de participación de su empresa.');
+                return;
+            }
+
+            // Recopilar datos del formulario
+            const formData = new FormData(this);
+            const data = {};
+            
+            // Convertir FormData a objeto
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+
+            // Aquí se enviarían los datos al servidor
+            console.log('Datos del formulario:', data);
+            
+            // Simulación de envío exitoso
+            alert('¡Formulario enviado exitosamente! Nos pondremos en contacto con usted pronto.');
+        });
+    </script>
+</body>
+</html>    
